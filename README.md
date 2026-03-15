@@ -1,6 +1,6 @@
 # EvalSSN Helper
 
-Aplikasi web sederhana berbasis CodeIgniter 4 untuk menjalankan kumpulan query SQL Server Susenas yang disimpan dalam file Excel. Aplikasi ini digunakan dalam jaringan intranet agar pegawai dapat menjalankan query melalui browser tanpa SQL client seperti HeidiSQL.
+Basic web app berbasis CodeIgniter 4 untuk menjalankan kumpulan query SQL Server Susenas yang disimpan dalam file Excel. Aplikasi ini digunakan dalam jaringan intranet agar pegawai dapat menjalankan query melalui browser tanpa SQL client seperti HeidiSQL dan tidak bergantung kepada server provinsi.
 
 ## Tujuan Utama
 - Menyediakan platform untuk menjalankan query anomali Susenas tanpa bergantung pada server provinsi.
