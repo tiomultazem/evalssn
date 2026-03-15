@@ -38,13 +38,19 @@ Tidak ada data
 
 ### Install PHP
 
-Gunakan PHP 8.5 dan tambahkan ke PATH.
+Buka Powershell as administrator dan jalankan
+```
+powershell -c "& ([ScriptBlock]::Create((irm 'https://www.php.net/include/download-instructions/windows.ps1'))) -Version 8.5"
+x64
+False
+Asia/Makassar
+2 (All users)
+
+```
 
 ### Install Composer
 
-Cek dengan:
-
-composer -V
+Download di https://getcomposer.org/Composer-Setup.exe bila belum menginstal.
 
 ### Install CodeIgniter
 
