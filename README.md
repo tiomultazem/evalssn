@@ -15,9 +15,6 @@ Basic web app berbasis CodeIgniter 4 untuk menjalankan kumpulan query SQL Server
 
 ## Struktur Query Excel
 
-Lokasi file:
-C:\Users\ACER\Downloads\listquery.xlsx
-
 Format:
 Kolom A : Judul query  
 Kolom B : SQL query  
@@ -26,12 +23,12 @@ Baris pertama adalah header dengan isian terserah.
 
 ## Cara Kerja
 
-1. Sistem membaca Excel menggunakan PhpSpreadsheet
-2. Kolom A menjadi dropdown
+1. Sistem membaca Excel
+2. Kolom A menjadi dropdown judul query
 3. User memilih query
 4. Sistem POST ke /runquery
 5. Query dijalankan ke SQL Server
-6. Hasil ditampilkan dalam tabel
+6. Hasil ditampilkan dalam tabel ke web
 
 Jika query kosong maka muncul:
 
@@ -51,11 +48,15 @@ composer -V
 
 ### Install CodeIgniter
 
-composer create-project codeigniter4/appstarter queryssn26
-
-Masuk folder project:
-
-cd queryssn26
+```
+composer create-project codeigniter4/appstarter evalssn-helper
+cd evalssn-helper
+git init
+git remote remove origin 2>nul
+git remote add origin https://github.com/tiomultazem/evalssn-helper.git
+git fetch origin
+git checkout origin/main -- .
+```
 
 ### Install PhpSpreadsheet
 
@@ -103,7 +104,7 @@ port : 1433
 
 Masuk folder project:
 
-cd C:\Users\ACER\queryssn26
+cd C:\Users\ACER\evalssn-helper
 
 Jalankan server:
 
