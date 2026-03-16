@@ -241,8 +241,9 @@ Contoh:
 
 3. Masukkan **username dan password database**
 4. Klik **Muat Database**
-5. Tunggu hingga dropdown database terisi
+5. Tunggu hingga dropdown database terisi, lalu pilih database yang dibutuhkan.
 6. Upload file Excel query
+7. Klik simpan. Bila semua terisi dengan benar, anda akan diarahkan otomatis kembali ke Home.
 
 Untuk pengujian, gunakan file:
 
