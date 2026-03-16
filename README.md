@@ -48,6 +48,10 @@ Asia/Makassar
 
 ```
 
+### Copy File php.ini
+
+Copy php.ini di folder tools ke ```C:\Program Files\php\current\``` dan replace php.ini yang sudah ada.
+
 ### Install Composer
 
 Download di https://getcomposer.org/Composer-Setup.exe bila belum menginstal.
