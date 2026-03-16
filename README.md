@@ -1,77 +1,150 @@
 # EvalSSN Helper
 
-Basic web app berbasis CodeIgniter 4 untuk menjalankan kumpulan query SQL Server Susenas yang disimpan dalam file Excel. Aplikasi ini digunakan dalam jaringan intranet agar pegawai dapat menjalankan query melalui browser tanpa SQL client seperti HeidiSQL dan tidak bergantung kepada server provinsi.
+**EvalSSN Helper** adalah aplikasi web sederhana berbasis **CodeIgniter 4** untuk menjalankan kumpulan query **SQL Server Susenas** yang disimpan dalam file **Excel**.
 
-## Tujuan Utama
-- Menyediakan platform untuk menjalankan query anomali Susenas tanpa bergantung pada server provinsi.
-- Tidak memerlukan jaringan lelet terenkripsi Tailscale atau Ngrok. Query dijalankan dan ditampilkan secara real-time.
+Aplikasi ini dirancang untuk digunakan dalam **jaringan intranet kantor**, sehingga pegawai dapat menjalankan query melalui browser tanpa perlu menggunakan SQL client seperti **HeidiSQL**, serta tanpa bergantung pada server provinsi.
 
-## Teknologi
-- PHP 8.5 (pengetahuan web programming tingkat menengah dibutuhkan untuk instalasi)
-- CodeIgniter 4
-- Microsoft SQL Server (default terinstal di server lokal Susenas)
-- PhpSpreadsheet
-- Composer
+---
 
-## Struktur Query Excel
+## Tujuan
 
-Format:
-Kolom A : Judul query  
-Kolom B : SQL query  
+* Menyediakan platform untuk menjalankan query anomali **Susenas** secara mandiri di tingkat kabupaten
+* Menghilangkan ketergantungan pada koneksi ke server provinsi
+* Menghindari penggunaan jaringan terenkripsi yang lambat seperti **Tailscale** atau **Ngrok**
+* Memungkinkan eksekusi query dan penampilan hasil secara **real-time melalui browser**
 
-Baris pertama adalah header dengan isian terserah.
+---
 
-## Cara Kerja
+## Teknologi yang Digunakan
 
-1. Sistem membaca Excel
-2. Kolom A menjadi dropdown judul query
-3. User memilih query
-4. Sistem POST ke /runquery
-5. Query dijalankan ke SQL Server
-6. Hasil ditampilkan dalam tabel ke web
+* **PHP 8.5**
+* **CodeIgniter 4**
+* **Microsoft SQL Server**
+* **PhpSpreadsheet**
+* **Composer**
 
-Jika query kosong maka muncul:
+> Instalasi memerlukan pengetahuan **web programming tingkat menengah**.
 
+---
+
+## Struktur File Query Excel
+
+Aplikasi membaca query dari file Excel dengan format berikut.
+
+| Kolom | Isi         |
+| ----- | ----------- |
+| A     | Judul Query |
+| B     | SQL Query   |
+
+Ketentuan:
+
+* Baris pertama dianggap sebagai **header**
+* Isi header bebas dan tidak mempengaruhi sistem
+
+---
+
+## Cara Kerja Aplikasi
+
+1. Sistem membaca file Excel yang berisi kumpulan query
+2. Isi **kolom A** ditampilkan sebagai dropdown pilihan query
+3. User memilih query yang ingin dijalankan
+4. Sistem mengirim request **POST ke `/runquery`**
+5. Query dijalankan ke **SQL Server**
+6. Hasil query ditampilkan dalam bentuk **tabel di halaman web**
+
+Jika query tidak menghasilkan data maka akan muncul pesan:
+
+```
 Tidak ada data
+```
+
+---
 
 ## Instalasi
 
-### Install PHP
+### 1. Install PHP
 
-Buka Powershell as administrator dan jalankan
-```
+Buka **PowerShell sebagai Administrator**, kemudian jalankan:
+
+```powershell
 powershell -c "& ([ScriptBlock]::Create((irm 'https://www.php.net/include/download-instructions/windows.ps1'))) -Version 8.5"
+```
+
+Saat instalasi berlangsung pilih:
+
+```
 x64
 False
 Asia/Makassar
 2 (All users)
 ```
-Saat dokumentasi ini dibuat, yang terinstal adalah PHP 8.5.4. Silakan disesuaikan karena kedepannya ada peletakan file berdasar direktori versi.
 
-### Copy file konfigurasi PHP
+Pada saat dokumentasi ini dibuat, versi yang terinstal adalah **PHP 8.5.4**.
+Jika versi berbeda, sesuaikan direktori pada langkah berikutnya.
 
-Copy php.ini di folder tools ke ```C:\Program Files\php\current\``` dan replace php.ini yang sudah ada.
-Perhatikan bahwa php.ini dari folder tools dikhususkan hanya untuk proyek ini, sehingga anda bisa mempertimbangkan untuk merge isinya,
-alih-alih menghapus yang lama.
+---
 
-### Copy PHP SQLServer
+### 2. Copy File Konfigurasi PHP
 
-Copy ```php_sqlsrv_85_nts_x64``` dan ```php_pdo_sqlsrv_85_nts_x64``` di folder tools ke ```C:\Program Files\PHP\8.5.4\nts\x64\ext```.
-Ini adalah ekstensi driver SQL Server untuk PHP. Sesuaikan versinya (asumsi anda penggunakan arsitektur x64 dan PHP 8.5.4)
+Copy file `php.ini` dari folder **tools** ke:
 
-### Install Composer (opsional, hanya untuk menginstal Codeigniter 4)
-
-Download di https://getcomposer.org/Composer-Setup.exe
-
-### Instalasi CodeIgniter
-
-Instal Codeigniter 4 dengan nama proyek evalssn-helper. Ini masih berupa proyek template CI4.
 ```
+C:\Program Files\php\current\
+```
+
+Kemudian **replace** file `php.ini` yang sudah ada.
+
+> File `php.ini` pada folder tools dikonfigurasi khusus untuk proyek ini.
+> Anda dapat melakukan **merge konfigurasi** apabila diperlukan.
+
+---
+
+### 3. Install Driver SQL Server untuk PHP
+
+Copy file berikut dari folder **tools**:
+
+```
+php_sqlsrv_85_nts_x64
+php_pdo_sqlsrv_85_nts_x64
+```
+
+ke direktori:
+
+```
+C:\Program Files\PHP\8.5.4\nts\x64\ext
+```
+
+File tersebut merupakan **driver SQL Server untuk PHP**.
+
+Pastikan menyesuaikan:
+
+* versi PHP
+* arsitektur sistem (x64)
+
+---
+
+### 4. Install Composer
+
+Download installer:
+
+```
+https://getcomposer.org/Composer-Setup.exe
+```
+
+---
+
+### 5. Instalasi CodeIgniter 4
+
+Install proyek template **CodeIgniter 4**:
+
+```bash
 composer create-project codeigniter4/appstarter evalssn-helper
 cd evalssn-helper
 ```
-Clone proyek EvalSSN Helper di Github ke proyek CI4 yang baru diinstal.
-```
+
+Kemudian clone repository **EvalSSN Helper**:
+
+```bash
 git init
 git remote remove origin 2>nul
 git remote add origin https://github.com/tiomultazem/evalssn-helper.git
@@ -79,56 +152,138 @@ git fetch origin
 git checkout origin/main -- .
 ```
 
-### Install ODBC SQL Server Driver
+Rename file:
 
-Download dan Install Microsoft ODBC Driver for SQL Server (x64). Link berikut untuk arsitektur x64
+```
+env -> .env
+```
 
-https://go.microsoft.com/fwlink/?linkid=2345415 
+---
+
+### 6. Install ODBC Driver SQL Server
+
+Download dan install:
+
+**Microsoft ODBC Driver for SQL Server (x64)**
+
+```
+https://go.microsoft.com/fwlink/?linkid=2345415
+```
+
+---
+
+### 7. Install PhpSpreadsheet
+
+Library ini digunakan untuk membaca file Excel.
+
+Jalankan:
+
+```bash
+composer require phpoffice/phpspreadsheet
+```
+
+---
 
 ## Menjalankan Server
 
-ketikkan di dalam folder proyek
-```
+Di dalam folder proyek jalankan:
+
+```bash
 serve
 ```
-Dia akan menjalankan file serve.bat yang berisi
-```
+
+Script tersebut akan menjalankan:
+
+```bash
 php spark serve --host 0.0.0.0 --port 8080
 ```
-Akses di
 
+Akses aplikasi melalui browser:
+
+```
 http://localhost:8080
+```
 
-Selanjutnya untuk intranet:
-Cari IP Adress PC Server (misal 192.168.x.x) dan akses dari PC lain di
+---
 
+## Akses Melalui Jaringan Intranet
+
+1. Cari **IP Address** komputer server (misal `192.168.x.x`)
+2. Dari komputer lain dalam jaringan, buka:
+
+```
 http://192.168.x.x:8080
+```
 
-## Konfigurasi Pertama Kali Akses
+---
 
-1. Buka /settings atau klik tombol settings di pojok kanan atas
-2. Isi kolom Hostname/Server dengan "IP Address\Instance SQL Server". Misal "127.0.0.1\new_sqlipds"
-3. Isi username dan password yang didapat dari pusat/provinsi
-4. Klik "Muat Database". Tunggu hingga dropdown database menampilkan isi yang dapat dipilih.
-5. 
+## Konfigurasi Awal
+
+1. Buka halaman:
+
+```
+/settings
+```
+
+atau klik tombol **Settings** di pojok kanan atas.
+
+2. Isi **Hostname / Server** dengan format:
+
+```
+IP_ADDRESS\SQL_INSTANCE
+```
+
+Contoh:
+
+```
+127.0.0.1\new_sqlipds
+```
+
+3. Masukkan **username dan password database**
+4. Klik **Muat Database**
+5. Tunggu hingga dropdown database terisi
+6. Upload file Excel query
+
+Untuk pengujian, gunakan file:
+
+```
+contoh query.xlsx
+```
+
+yang tersedia pada folder **tools**.
+
+---
 
 ## Routing
 
-/ → halaman utama  
-/runquery → menjalankan query  
+| Route       | Fungsi            |
+| ----------- | ----------------- |
+| `/`         | Halaman utama     |
+| `/runquery` | Menjalankan query |
 
-Route tidak valid akan kembali ke halaman utama.
+Route yang tidak valid akan diarahkan kembali ke halaman utama.
 
-## Catatan
+---
 
-Aplikasi ini tidak memiliki autentikasi. Disarankan hanya digunakan dalam jaringan intranet.
+## Catatan Keamanan
+
+Aplikasi ini **tidak memiliki sistem autentikasi**.
+
+Disarankan hanya digunakan pada **jaringan intranet internal kantor**.
+
+---
 
 ## License (MIT)
 
-Copyright (c) 2026  
-Gilang Wahyu Prasetyo, S.Tr.Stat  
+```
+Copyright (c) 2026
+Gilang Wahyu Prasetyo, S.Tr.Stat
 BPS Kabupaten Tabalong
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files to deal in the Software without restriction including without limitation the rights to use copy modify merge publish distribute sublicense and or sell copies of the Software.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files to deal in the Software
+without restriction including without limitation the rights to use copy
+modify merge publish distribute sublicense and or sell copies of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
+```
