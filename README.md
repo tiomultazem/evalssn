@@ -45,22 +45,33 @@ x64
 False
 Asia/Makassar
 2 (All users)
-
 ```
+Saat dokumentasi ini dibuat, yang terinstal adalah PHP 8.5.4. Silakan disesuaikan karena kedepannya ada peletakan file berdasar direktori versi.
 
-### Copy File php.ini
+### Copy file konfigurasi PHP
 
 Copy php.ini di folder tools ke ```C:\Program Files\php\current\``` dan replace php.ini yang sudah ada.
+Perhatikan bahwa php.ini dari folder tools dikhususkan hanya untuk proyek ini, sehingga anda bisa mempertimbangkan untuk merge isinya,
+alih-alih menghapus yang lama.
 
-### Install Composer
+### Copy PHP SQLServer
 
-Download di https://getcomposer.org/Composer-Setup.exe bila belum menginstal.
+Copy ```php_sqlsrv_85_nts_x64``` dan ```php_pdo_sqlsrv_85_nts_x64``` di folder tools ke ```C:\Program Files\PHP\8.5.4\nts\x64\ext```.
+Ini adalah ekstensi driver SQL Server untuk PHP. Sesuaikan versinya (asumsi anda penggunakan arsitektur x64 dan PHP 8.5.4)
 
-### Install CodeIgniter
+### Install Composer (opsional, hanya untuk menginstal Codeigniter 4)
 
+Download di https://getcomposer.org/Composer-Setup.exe
+
+### Instalasi CodeIgniter
+
+Instal Codeigniter 4 dengan nama proyek evalssn-helper. Ini masih berupa proyek template CI4.
 ```
 composer create-project codeigniter4/appstarter evalssn-helper
 cd evalssn-helper
+```
+Clone proyek EvalSSN Helper di Github ke proyek CI4 yang baru diinstal.
+```
 git init
 git remote remove origin 2>nul
 git remote add origin https://github.com/tiomultazem/evalssn-helper.git
@@ -68,72 +79,38 @@ git fetch origin
 git checkout origin/main -- .
 ```
 
-### Install PhpSpreadsheet
-
-composer require phpoffice/phpspreadsheet
-
 ### Install ODBC SQL Server Driver
 
-Install Microsoft ODBC Driver for SQL Server (x64)
+Download dan Install Microsoft ODBC Driver for SQL Server (x64). Link berikut untuk arsitektur x64
 
-### Install PHP SQL Server Driver
-
-Tambahkan:
-
-php_sqlsrv.dll  
-php_pdo_sqlsrv.dll  
-
-## PHP Extension
-
-Edit php.ini lalu enable:
-
-extension=gd
-extension=mbstring
-extension=zip
-extension=intl
-extension=openssl
-extension=pdo_sqlsrv
-extension=sqlsrv
-
-## Konfigurasi Database
-
-File:
-
-app/Config/Database.php
-
-Contoh:
-
-hostname : 192.168.x.x  
-username : username  
-password : password  
-database : Susenas2026  
-DBDriver : SQLSRV  
-port : 1433  
+https://go.microsoft.com/fwlink/?linkid=2345415 
 
 ## Menjalankan Server
 
-Masuk folder project:
-
-cd C:\Users\ACER\evalssn-helper
-
-Jalankan server:
-
+ketikkan di dalam folder proyek
+```
+serve
+```
+Dia akan menjalankan file serve.bat yang berisi
+```
 php spark serve --host 0.0.0.0 --port 8080
-
-Akses:
+```
+Akses di
 
 http://localhost:8080
 
-Untuk intranet:
+Selanjutnya untuk intranet:
+Cari IP Adress PC Server (misal 192.168.x.x) dan akses dari PC lain di
 
-http://IP-PC:8080
+http://192.168.x.x:8080
 
-## Struktur Proyek
+## Konfigurasi Pertama Kali Akses
 
-app/
-Controllers/Home.php  
-Views/welcome_message.php  
-Config/Routes.php  
+1. Buka /settings atau klik tombol settings di pojok kanan atas
+2. Isi kolom Hostname/Server dengan "IP Address\Instance SQL Server". Misal "127.0.0.1\new_sqlipds"
+3. Isi username dan password yang didapat dari pusat/provinsi
+4. Klik "Muat Database". Tunggu hingga dropdown database menampilkan isi yang dapat dipilih.
+5. 
 
 ## Routing
 
