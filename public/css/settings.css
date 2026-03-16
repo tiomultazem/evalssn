@@ -1,0 +1,18 @@
+body {
+    background: #f0f2f5;
+}
+
+.page-wrap {
+    width: 95%;
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+.app-header {
+    background: linear-gradient(90deg, #ff8008, #ffc837);
+    color: #fff;
+}
+
+.app-title {
+    text-shadow: 0 1px 1px rgba(0,0,0,.35), 0 2px 4px rgba(0,0,0,.28);
+}

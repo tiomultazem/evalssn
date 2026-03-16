@@ -5,28 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Settings Database</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: #f0f2f5;
-        }
-
-        .page-wrap {
-            width: 95%;
-            margin: 0 auto;
-            max-width: 900px;
-        }
-
-        .app-header {
-            background: linear-gradient(90deg, #ff8008, #ffc837);
-            color: #fff;
-        }
-
-        .app-title {
-            text-shadow: 0 1px 1px rgba(0,0,0,.35), 0 2px 4px rgba(0,0,0,.28);
-        }
-    </style>
+    <link href="<?= base_url('css/settings.css') ?>" rel="stylesheet">
 </head>
-<body>
+<body data-save-success="<?= !empty($save_success) ? '1' : '0' ?>" data-home-url="<?= base_url('/') ?>">
     <header class="app-header py-3 shadow-sm mb-4">
         <div class="page-wrap text-center">
             <h1 class="h3 mb-0 fw-bold app-title">Pengaturan Koneksi Database</h1>
@@ -63,7 +44,7 @@
                             name="hostname"
                             class="form-control"
                             value="<?= esc($config['hostname'] ?? '') ?>"
-                            placeholder="127.0.0.1\new_sqlipds"
+                            placeholder="127.0.0.1\\new_sqlipds"
                         >
                     </div>
 
@@ -163,47 +144,14 @@
                     Sebaiknya anda jangan akses halaman ini bila anda bukan administrator dan/atau tidak menggunakan PC Server.
                 </div>
                 <div class="modal-footer">
-                <a href="<?= base_url('/') ?>" class="btn btn-success">Back ke Home</a>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Saya Mengerti</button>
-            </div>
+                    <a href="<?= base_url('/') ?>" class="btn btn-success">Back ke Home</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Saya Mengerti</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <?php if (empty($save_success)): ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const warningModalEl = document.getElementById('adminWarningModal');
-                if (!warningModalEl) return;
-
-                const warningModal = new bootstrap.Modal(warningModalEl);
-                warningModal.show();
-            });
-        </script>
-    <?php endif; ?>
-
-    <?php if (!empty($save_success)): ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                let seconds = 3;
-                const countdownEl = document.getElementById('redirectCountdown');
-
-                const interval = setInterval(function () {
-                    seconds--;
-
-                    if (countdownEl && seconds >= 0) {
-                        countdownEl.textContent = seconds;
-                    }
-
-                    if (seconds <= 0) {
-                        clearInterval(interval);
-                        window.location.href = "<?= base_url('/') ?>";
-                    }
-                }, 1000);
-            });
-        </script>
-    <?php endif; ?>
+    <script src="<?= base_url('js/settings.js') ?>"></script>
 </body>
 </html>
