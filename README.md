@@ -260,7 +260,7 @@ yang tersedia pada folder **tools**.
 | Route       | Fungsi            |
 | ----------- | ----------------- |
 | `/`         | Halaman utama     |
-| `/runquery` | Menjalankan query |
+| `/settings` | Konfigurasi database |
 
 Route yang tidak valid akan diarahkan kembali ke halaman utama.
 
@@ -272,6 +272,9 @@ Aplikasi ini **tidak memiliki sistem autentikasi**.
 
 Disarankan hanya digunakan pada **jaringan intranet internal kantor**.
 
+Dipersilakan bertanya via wa/ig seputar instalasi.
+
+Jangan lupa surat resmi, bukti penggunaan, dll tetek bengek ZI kalo mau replikasi ya.
 ---
 
 ## License (MIT)
