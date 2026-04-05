@@ -23,8 +23,8 @@ Aplikasi ini dirancang untuk digunakan dalam **jaringan intranet kantor**, sehin
 * **PhpSpreadsheet**
 * **Composer**
 
-> Instalasi memerlukan pengetahuan **web programming tingkat menengah**.
-> Sebaiknya diinstal di PC server lokal Susenas.
+> - Instalasi memerlukan pengetahuan **web programming tingkat menengah**.
+> - Sebaiknya diinstal di PC server lokal Susenas.
 
 ---
 
