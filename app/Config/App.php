@@ -16,7 +16,24 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'http://localhost:8080/';
+    // spark
+    // public string $baseURL = 'http://localhost:8080/';
+    // laragon
+    // public string $baseURL = 'http://192.168.1.144/evalssn/';
+    // public string $baseURL = 'http://' . $_SERVER['HTTP_HOST'] . '/evalssn/';
+    public string $baseURL = '';
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $isHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+        $scheme  = $isHttps ? 'https' : 'http';
+        $host    = $_SERVER['HTTP_HOST'] ?? 'localhost';
+
+        $this->baseURL = $scheme . '://' . $host . '/evalssn/';
+    }
+
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
@@ -40,7 +57,7 @@ class App extends BaseConfig
      * something else. If you have configured your web server to remove this file
      * from your site URIs, set this variable to an empty string.
      */
-    public string $indexPage = 'index.php';
+    public string $indexPage = '';
 
     /**
      * --------------------------------------------------------------------------
